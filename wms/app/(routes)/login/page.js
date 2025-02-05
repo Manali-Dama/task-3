@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest, logout, loginSuccess } from '@/store/slices/authSlice';
 import { useRouter } from 'next/navigation';
+import './style.css'
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
@@ -46,11 +47,11 @@ export default function LoginForm() {
 
   return (
     <div className="login-component">
-      <h2>
-        {user?.name || 'Guest'}
-      </h2>
+   
       {!user ? (
         <form onSubmit={handleSubmit} className="login-form">
+          <img className='image-component' src='https://stage.mkwms.dev/assets/medkart-logo-green.svg' alt='logo-green'/>
+             <h2>Login to WMS</h2>
           <input
             type="email"
             placeholder="Email"

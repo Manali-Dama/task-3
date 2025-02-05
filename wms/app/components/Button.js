@@ -1,6 +1,7 @@
 // components/Button.js
 
 import React from 'react';
+import '../globals.css';
 
 // You can pass custom classes for different styles and any other props you need
 const Button = ({ onClick, children, type = 'button', className = '', disabled = false }) => {

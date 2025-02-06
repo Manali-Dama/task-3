@@ -72,22 +72,9 @@ const ProductMaster = () => {
     ]
 
     const actions = [
-      {use:"edit", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg"},
-      {use:"copy", icon:"		https://stage.mkwms.dev/assets/table/copy-button.svg"},
+      {use:"edit", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg" , event:""},
+      {use:"copy", icon:"		https://stage.mkwms.dev/assets/table/copy-button.svg", event:""},
     ]
-
-  // ]} data={products}]
-    
-  //  [ "Product Code", "Wondersoft Code", "Product Name", "Manufacturer", "Combination", "Publish Status"];
-
-  // const tableData = products.map((product) => [
-  //   product.product_code,
-  //   product.ws_code,
-  //   product.product_name,
-  //   product.manufacturer,
-  //   product.combination,
-  //   product.publish_status,
-  // ]);
 
   return (
     <div className="py-3">
@@ -95,6 +82,8 @@ const ProductMaster = () => {
 
       <div className="bg-white mt-3">
         <h1>Unpublished Products</h1>
+
+               
 {/* 
         <Search headers={headers.slice(0, 4)} onSearch={handleSearch} /> */}
 

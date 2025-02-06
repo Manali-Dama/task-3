@@ -10,7 +10,7 @@ const Table = ({ headers, data, actions, variant = "default" }) => {
               {headers.map((header, index) => (
                 <th key={index}>{header.Label}</th>
               ))}
-              <th></th>
+              <th></th>    
             </tr>
 
             
@@ -24,7 +24,7 @@ const Table = ({ headers, data, actions, variant = "default" }) => {
                   ))}
                   <td>
                     {actions.map((action) => (
-                      <button key={action.use} className="px-2"><img src={action.icon}/></button>
+                      <button onClick={action.event} key={action.use} className="px-2"><img src={action.icon}/></button>
                     ))}
                     </td>
                 </tr>

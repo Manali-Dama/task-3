@@ -6,7 +6,7 @@ import { fetchProductsStart } from "@/store/slices/productsSlice";
 import Table from "@/app/components/Table"; 
 import "@/app/globals.css";
 import { Breadcrumbs } from "@/app/components/Breadcrumbs";
-import Search from "@/app/components/Search";
+// import Search from "@/app/components/Search";
 
 const ProductMaster = () => {
   const dispatch = useDispatch();
@@ -43,29 +43,38 @@ const ProductMaster = () => {
     abortControllerRef.current = controller;
 
     // Prepare search query
-    const formattedHeader = header.toLowerCase().replace(/\s+/g, "_");
-    const searchQuery = `search=${term},${formattedHeader}&sort_by=created,d&page=${current_page}`;
+    // const formattedHeader = header.toLowerCase().replace(/\s+/g, "_");
+    // const searchQuery = `search=${term},${formattedHeader}&sort_by=created,d&page=${current_page}`;
 
     // Dispatch action without the signal, handle it locally
-    dispatch(fetchProductsStart({ 
-      url: `https://i-stage.mkwms.dev/api/v1/master/products/unpublished?${searchQuery}`,
-      controller, // Pass the controller to handle cancellation within the action
-    }));
-  };
+  //   dispatch(fetchProductsStart({ 
+  //     url: `https://i-stage.mkwms.dev/api/v1/master/products/unpublished?${searchQuery}`,
+  //     controller, // Pass the controller to handle cancellation within the action
+  //   }));
+  // };
+
+  dispatch(fetchProductsStart({ 
+    url: `https://i-stage.mkwms.dev/api/v1/master/products/unpublished?$`,
+    controller, // Pass the controller to handle cancellation within the action
+  }));
+};
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
-  const headers = ["Product Code", "Wondersoft Code", "Product Name", "Manufacturer", "Combination", "Publish Status"];
+  const headers = [
+    {Label:"Product Code", fieldkey:"product_code"},
+    {Label:"Wondersoft Code", fieldkey:"ws_code"},
+    {Label:"Product Name", fieldkey:"product_name"},
+    {Label:"Manufacturer", fieldkey:"manufacturer"},
+    {Label:"Combination", fieldkey:"combination"},
+    {Label:"Publish Status", fieldkey:"publish_status"},
+    ]
 
-  const tableData = products.map((product) => [
-    product.product_code,
-    product.ws_code,
-    product.product_name,
-    product.manufacturer,
-    product.combination,
-    product.publish_status,
-  ]);
+    const actions = [
+      {use:"edit", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg" , event:""},
+      {use:"copy", icon:"		https://stage.mkwms.dev/assets/table/copy-button.svg", event:""},
+    ]
 
   return (
     <div className="py-3">
@@ -74,9 +83,11 @@ const ProductMaster = () => {
       <div className="bg-white mt-3">
         <h1>Unpublished Products</h1>
 
-        <Search headers={headers.slice(0, 4)} onSearch={handleSearch} />
+               
+{/* 
+        <Search headers={headers.slice(0, 4)} onSearch={handleSearch} /> */}
 
-        <Table headers={headers} data={tableData} variant="products" />
+        <Table headers={headers} data={products} actions={actions} variant="products" />
 
         <div className="pagination">
           <button onClick={prevPage} disabled={current_page === 1}>

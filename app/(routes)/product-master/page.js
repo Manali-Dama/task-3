@@ -43,7 +43,7 @@ const ProductMaster = () => {
     abortControllerRef.current = controller;
 
     // Prepare search query
-    const formattedHeader = header.toLowerCase().replace(/\s+/g, "_");
+    // const formattedHeader = header.toLowerCase().replace(/\s+/g, "_");
     // const searchQuery = `search=${term},${formattedHeader}&sort_by=created,d&page=${current_page}`;
 
     // Dispatch action without the signal, handle it locally
@@ -70,6 +70,12 @@ const ProductMaster = () => {
     {Label:"Combination", fieldkey:"combination"},
     {Label:"Publish Status", fieldkey:"publish_status"},
     ]
+
+    const actions = [
+      {use:"edit", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg"},
+      {use:"copy", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg"},
+    ]
+
   // ]} data={products}]
     
   //  [ "Product Code", "Wondersoft Code", "Product Name", "Manufacturer", "Combination", "Publish Status"];
@@ -92,7 +98,7 @@ const ProductMaster = () => {
 {/* 
         <Search headers={headers.slice(0, 4)} onSearch={handleSearch} /> */}
 
-        <Table headers={headers} data={products} variant="products" />
+        <Table headers={headers} data={products} actions={actions} variant="products" />
 
         <div className="pagination">
           <button onClick={prevPage} disabled={current_page === 1}>

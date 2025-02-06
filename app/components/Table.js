@@ -1,7 +1,7 @@
 import React from "react";
 import "@/app/styles/Table.css";
 
-const Table = ({ headers, data, variant = "default" }) => {
+const Table = ({ headers, data, actions, variant = "default" }) => {
     return (
       <div className="table-container">
         <table className={`custom-table ${variant}`}>
@@ -12,6 +12,7 @@ const Table = ({ headers, data, variant = "default" }) => {
               ))}
               <th>Actions</th>
             </tr>
+
             
           </thead>
           <tbody>
@@ -22,7 +23,11 @@ const Table = ({ headers, data, variant = "default" }) => {
                     <td key={cellIndex}>{row[cell?.fieldkey]}</td>
                   ))}
                   <td>
-                    <button><img src="https://stage.mkwms.dev/assets/table/Edit-button.svg" width={20} height={20}/></button></td>
+                    {/* <button><img src="https://stage.mkwms.dev/assets/table/Edit-button.svg" width={20} height={20}/></button> */}
+                    {actions.map((action) => (
+                      <button key={action.use}><img src={action.icon}/></button>
+                    ))}
+                    </td>
                 </tr>
               ))
             ) : (

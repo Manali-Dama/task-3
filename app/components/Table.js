@@ -10,7 +10,7 @@ const Table = ({ headers, data, actions, variant = "default" }) => {
               {headers.map((header, index) => (
                 <th key={index}>{header.Label}</th>
               ))}
-              <th>Actions</th>
+              <th></th>
             </tr>
 
             
@@ -23,9 +23,8 @@ const Table = ({ headers, data, actions, variant = "default" }) => {
                     <td key={cellIndex}>{row[cell?.fieldkey]}</td>
                   ))}
                   <td>
-                    {/* <button><img src="https://stage.mkwms.dev/assets/table/Edit-button.svg" width={20} height={20}/></button> */}
                     {actions.map((action) => (
-                      <button key={action.use}><img src={action.icon}/></button>
+                      <button key={action.use} className="px-2"><img src={action.icon}/></button>
                     ))}
                     </td>
                 </tr>

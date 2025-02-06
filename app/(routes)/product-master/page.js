@@ -73,7 +73,7 @@ const ProductMaster = () => {
 
     const actions = [
       {use:"edit", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg"},
-      {use:"copy", icon:"	https://stage.mkwms.dev/assets/table/Edit-button.svg"},
+      {use:"copy", icon:"		https://stage.mkwms.dev/assets/table/copy-button.svg"},
     ]
 
   // ]} data={products}]

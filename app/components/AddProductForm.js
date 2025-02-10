@@ -1,81 +1,92 @@
-// app/components/AddProductForm.js
-import { useState } from "react";
+"use client";
+
+import React, { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addProductStart } from "@/store/slices/productsSlice";
-import InputField from "./InputField"; // Import the reusable InputField
+import CommonForm from "./CommonForm";
+import { fetchDropdownsRequest } from "@/store/slices/dropdownSlice";
+import { form_fields as baseFormFields } from "@/data/AddProductForm";
+import "@/app/styles/AddProduct.css";
 
-const AddProductForm = ({ closeModal }) => {
+const AddProductForm = () => {
   const dispatch = useDispatch();
-  const { addProductLoading, addProductError } = useSelector(
-    (state) => state.products
-  );
+  const dropdowns = useSelector((state) => state.dropdowns.dropdowns);
 
-  const [product, setProduct] = useState({
-    product_code: "",
-    product_name: "",
-    manufacturer: "",
-    combination: "",
-    publish_status: "",
-  });
+  useEffect(() => {
+    dispatch(fetchDropdownsRequest());
+  }, [dispatch]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct({
-      ...product,
-      [name]: value,
-    });
+  // Transform API response to match the expected dropdown structure
+  const transformDropdownOptions = (key) => {
+    const items = dropdowns?.[key]; // Safely access the key
+  
+    if (!Array.isArray(items)) {
+      console.warn(`Expected an array for key '${key}', but got:`, items);
+      return []; // Return an empty array if the key is missing or not an array
+    }
+  
+    return items.map((item) => ({
+      field_key: item,
+      label: item,
+    }));
+  };
+  
+
+  // Memoize dropdown options to prevent unnecessary re-renders
+  const transformedDropdowns = useMemo(() => {
+    return Object.keys(dropdowns || {}).reduce((acc, key) => {
+      acc[key] = transformDropdownOptions(key);
+      return acc;
+    }, {});
+  }, [dropdowns]);
+
+  // Debugging logs (only runs when dropdowns change)
+  useEffect(() => {
+    if (dropdowns) {
+      console.log("Dropdowns from API:", dropdowns);
+      console.log("Transformed Dropdowns:", transformedDropdowns);
+    }
+  }, [dropdowns, transformedDropdowns]);
+
+  // Inject transformed dropdown options into form_fields
+  const form_fields = {
+    ...baseFormFields,
+    sections: baseFormFields.sections.map((section) => ({
+      ...section,
+      fields: section.fields.map((field) =>
+        field.type === "dropdown"
+          ? { ...field, options: transformedDropdowns[field.field_key] || [] }
+          : field
+      ),
+    })),
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(addProductStart(product));
+  const handleSubmit = (formData) => {
+    dispatch({ type: "addProduct", payload: formData });
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add Product</h2>
-      {addProductError && <p className="error">{addProductError}</p>}
-
-      {/* Use reusable InputField component */}
-      <InputField
-        label="Product Code"
-        name="product_code"
-        value={product.product_code}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Product Name"
-        name="product_name"
-        value={product.product_name}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Manufacturer"
-        name="manufacturer"
-        value={product.manufacturer}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Combination"
-        name="combination"
-        value={product.combination}
-        onChange={handleChange}
-      />
-      <InputField
-        label="Publish Status"
-        name="publish_status"
-        value={product.publish_status}
-        onChange={handleChange}
-      />
-      
-      <button type="submit" disabled={addProductLoading}>
-        {addProductLoading ? "Adding..." : "Add Product"}
-      </button>
-      <button type="button" onClick={closeModal}>
-        Close
-      </button>
-    </form>
-  );
+  return <CommonForm title="Add Product" formFields={form_fields} onSubmit={handleSubmit} />;
 };
 
 export default AddProductForm;
+
+
+
+
+// 'use client';
+
+// import React from "react";
+// import CommonForm from "./CommonForm";
+// import { form_fields } from "@/data/AddProductForm";
+// import "@/app/styles/AddProduct.css";
+
+// const AddProductForm = () => {
+//   const handleSubmit = (formData) => {
+//     console.log("Form Submitted", formData);
+//     // Handle form submission logic here
+//   };
+
+//   return <CommonForm title="Add Product" formFields={form_fields} onSubmit={handleSubmit} />;
+// };
+
+// export default AddProductForm;
+

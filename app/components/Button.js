@@ -9,7 +9,7 @@ const Button = ({ onClick, children, type = 'button', className = '', disabled =
     <button
       type={type}
       onClick={onClick}
-      className={`py-2 px-4 rounded bg-blue-500 text-white font-semibold disabled:bg-gray-400 ${className}`}
+      className={`py-2 px-4 rounded bg-[#5556a6] text-white font-semibold disabled:bg-gray-400 ${className}`}
       disabled={disabled}
     >
       {children}

@@ -1,16 +1,16 @@
-export const ProductDropdowns = {
-    product_type: [],
-    dosage_form: [],
-    package_type: [],
-    uom: [],
-    schedule_type_code: [],
-    gst_type: [],
-    b2b_category: [],
-    sales_trend_category: [],
-    product_return_type: [],
-    mis_reporting_category: [],
-    mis_warehouse_category: []
-};
+// export const ProductDropdowns = {
+//     product_type: [],
+//     dosage_form: [],
+//     package_type: [],
+//     uom: [],
+//     schedule_type_code: [],
+//     gst_type: [],
+//     b2b_category: [],
+//     sales_trend_category: [],
+//     product_return_type: [],
+//     mis_reporting_category: [],
+//     mis_warehouse_category: []
+// };
 
 export const form_fields = {
     sections: [
@@ -32,38 +32,40 @@ export const form_fields = {
             fields: [
                 {
                     type: "input",
-                    label: "product name",
+                    label: "Product Name",
                     field_key: "product_name",
                     required: true
                 },
                 {
                     type: "dropdown",
-                    label: "product type",
+                    label: "Product Type",
                     field_key: "product_type",
                     required: true
                 },
                 {
                     type: "input",
-                    label: "wondersoft code",
+                    label: "Wondersoft Code",
                     field_key: "ws_code",
                     required: true
                 },
                 {
-                    type: "input",
-                    label: "product code",
+                    type: "input",    
+                    label: "Product Code",
                     field_key: "product_code",
                     required: true
                 },
                 {
-                    type: "dropdown",
+                    type: "search-dropdown",
                     label: "Manufacturer",
-                    field_key:"manufacturer",
+                    field_key:"manufacturers",
+                    options: "manufacturers",
                     required: true
                 },
+                
                 {
                     type: "input",
                     label: "MRP",
-                    field_key: "mrp",
+                    field_key: "mrp", 
                     required: true
                 },
             ]
@@ -106,10 +108,10 @@ export const form_fields = {
                     title: "Molecule Composition",
                     fields: [
                         {
-                            type: "checkbox",
+                            type: "dropdown",
                             label: "Molecules",
                             options: "molecules",
-                            required: true
+                            required: false
                         }
                     ]
                 },
@@ -118,55 +120,56 @@ export const form_fields = {
                     title: "Classification",
                     fields: [
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Is Assured",
                             field_key: "is_assured",
-                            required: true
+                            required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Discontinued",
                             field_key: "is_discontinued",
-                            required: true
+                            options: ['yes','no'],
+                            required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Banned",
                             field_key: "banned",
-                            required: true
+                            required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Is Active",
                             field_key: "is_active",
-                            required: true
+                            required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Is Hidden Fron Alternate",
                             field_key: "is_hidden_from_alternate_products",
-                            required: true
+                            required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Rx Required",
                             field_key: "is_rx_required",
                             required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Can Sell Online",
                             field_key: "can_sell_online",
                             required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Chronic",
                             field_key: "is_chronic",
                             required: false
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Refrigerated",
                             field_key: "is_refrigerated",
                             required: false
@@ -186,19 +189,19 @@ export const form_fields = {
                         {
                             type: "input",
                             label: "Purchase Unit",
-                            options: "purchase_unit",
+                            field_key: "purchase_unit",
                             required: true
                         },
                         {
                             type: "input",
                             label: "Transfer Unit",
-                            options: "transfer_unit",
+                            field_key: "transfer_unit",
                             required: true
                         },
                         {
                             type: "input",
                             label: "Sales Unit",
-                            options: "sales_unit",
+                            field_key: "sales_unit",
                             required: true
                         }
                     ]
@@ -210,13 +213,13 @@ export const form_fields = {
                         {
                             type: "dropdown",
                             label: "GST Type",
-                            options: "gst_type",
+                            field_key: "gst_type",
                             required: true
                         },
                         {
                             type: "input",
                             label: "HSN Code",
-                            options: "hsn_code",
+                            field_key: "hsn_code",
                             required: true
                         },
                     ]
@@ -235,7 +238,7 @@ export const form_fields = {
                             type: "dropdown",
                             label: "B2C Product type",
                             field_key: "b2c_category",
-                            required: true
+                            required: false
                         },
                         {
                             type: "dropdown",
@@ -244,9 +247,9 @@ export const form_fields = {
                             required: true
                         },
                         {
-                            type: "boolean",
+                            type: "dropdown",
                             label: "Return Type",
-                            field_key: "is_returnable",
+                            field_key: "product_return_type",
                             required: true
                         }
                     ]

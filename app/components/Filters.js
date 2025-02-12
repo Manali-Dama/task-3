@@ -6,8 +6,8 @@ const Filter = ({ onFilterChange }) => {
     isAssured: "",
     isRefrigerated: "",
     status: "",
-    combinations: "",
     manufacturer: "",
+    combination: "",
   });
 
   const [molecules, setMolecules] = useState([]);
@@ -18,9 +18,8 @@ const Filter = ({ onFilterChange }) => {
     const fetchMolecules = async () => {
       try {
         const response = await api.get('/master/molecules');
-        console.log("Molecules Response:", response); // Log the response to check the structure
         if (response.data && Array.isArray(response.data.molecules)) {
-          setMolecules(response.data.molecules.map(molecule => molecule.name)); // Extract the names
+          setMolecules(response.data.molecules);
         } else {
           console.error("Unexpected response format for molecules:", response);
         }
@@ -32,9 +31,8 @@ const Filter = ({ onFilterChange }) => {
     const fetchManufacturers = async () => {
       try {
         const response = await api.get('/master/manufacturers');
-        console.log("Manufacturers Response:", response); // Log the response to check the structure
         if (response.data && Array.isArray(response.data.manufacturers)) {
-          setManufacturers(response.data.manufacturers.map(manufacturer => manufacturer.name)); // Extract the names
+          setManufacturers(response.data.manufacturers);
         } else {
           console.error("Unexpected response format for manufacturers:", response);
         }
@@ -47,40 +45,36 @@ const Filter = ({ onFilterChange }) => {
     fetchManufacturers();
   }, []);
 
+  // Function to generate the API URL based on selected filters
+  const fetchFilteredProducts = async (updatedFilters) => {
+    let url = "/master/products/unpublished";
+    const params = new URLSearchParams();
+
+    if (updatedFilters.isAssured) params.append("is_assured", updatedFilters.isAssured);
+    if (updatedFilters.isRefrigerated) params.append("is_refrigerated", updatedFilters.isRefrigerated);
+    if (updatedFilters.status) params.append("publish_status", updatedFilters.status);
+    if (updatedFilters.manufacturer) params.append("manufacturer", updatedFilters.manufacturer);
+    if (updatedFilters.combination) params.append("combination", updatedFilters.combination);
+    
+    params.append("sort_by", "created,d");
+    params.append("page", "1");
+
+    try {
+      const response = await api.get(`${url}?${params.toString()}`);
+      console.log("Filtered Products Response:", response.data);
+    } catch (error) {
+      console.error("Error fetching filtered products:", error);
+    }
+  };
+
   // Handle filter changes
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const newFilters = { ...filters, [name]: value };
     setFilters(newFilters);
-    onFilterChange(newFilters); // Pass the updated filter values to the parent
+    onFilterChange(newFilters);
+    fetchFilteredProducts(newFilters); // Fetch products on filter change
   };
-
-  // Function to generate the API URL based on selected filters
-  const generateApiUrl = () => {
-    let url = "https://i-stage.mkwms.dev/api/v1/master/products/unpublished";
-    const params = [];
-
-    if (filters.isAssured) params.push(`is_assured=${filters.isAssured}`);
-    if (filters.isRefrigerated) params.push(`is_refrigerated=${filters.isRefrigerated}`);
-    if (filters.status) params.push(`publish_status=${filters.status}`);
-    if (filters.manufacturer) params.push(`manufacturer=${filters.manufacturer}`);
-    if (filters.molecule) params.push(`molecule=${filters.molecule}`); // Assuming you want to filter by molecule as well.
-
-    // Add sorting if needed
-    params.push("sort_by=product_code,d");
-
-    // Add pagination parameters
-    params.push("page=1");
-
-    if (params.length > 0) {
-      url += "?" + params.join("&");
-    }
-
-    console.log("Generated API URL:", url);
-    return url;
-  };
-
-  // You can call `generateApiUrl()` to get the URL whenever the filters change
 
   return (
     <div className="filter-container">
@@ -103,21 +97,17 @@ const Filter = ({ onFilterChange }) => {
       <select name="manufacturer" onChange={handleFilterChange} value={filters.manufacturer}>
         <option value="">Manufacturer</option>
         {manufacturers.map((manufacturer, idx) => (
-          <option key={idx} value={manufacturer}>{manufacturer}</option>
+          <option key={idx} value={manufacturer.id}>{manufacturer.name}</option>
         ))}
       </select>
-      <select name="molecule" onChange={handleFilterChange} value={filters.molecule}>
-        <option value="">Molecule</option>
+      <select name="combination" onChange={handleFilterChange} value={filters.combination}>
+        <option value="">Combination</option>
         {molecules.map((molecule, idx) => (
-          <option key={idx} value={molecule}>{molecule}</option>
+          <option key={idx} value={molecule.id}>{molecule.name}</option>
         ))}
       </select>
-
-      {/* You can use the URL to make the API request here or display it */}
-      <button onClick={() => alert(generateApiUrl())}>Generate API URL</button>
     </div>
   );
 };
 
 export default Filter;
-

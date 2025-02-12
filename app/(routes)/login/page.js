@@ -44,6 +44,7 @@ export default function LoginForm() {
     dispatch(logout());
     router.push('/login');
   };
+  //border-[#ccc] 
 
   return (
     <div className="login-component">
@@ -51,7 +52,10 @@ export default function LoginForm() {
       {!user ? (
         <form onSubmit={handleSubmit} className="login-form">
           <img className='image-component' src='https://stage.mkwms.dev/assets/medkart-logo-green.svg' alt='logo-green'/>
-             <h2>Login to WMS</h2>
+             <h1>Login to WMS</h1>
+             <div className='flex flex-col gap-6 mt-8 mb-3 px-3'>
+            <div className='flex border-spacing-1 border-2 rounded-md bg-[#e8f0fe] '>
+              <img src='	https://stage.mkwms.dev/assets/envelop.svg' />
           <input
             type="email"
             placeholder="Email"
@@ -60,6 +64,9 @@ export default function LoginForm() {
             required
             className="input-field"
           />
+          </div>
+          <div className='flex border-spacing-1 border-2  rounded-md bg-[#e8f0fe] '>
+            <img src='https://stage.mkwms.dev/assets/password-lock.svg' />
           <input
             type="password"
             placeholder="Password"
@@ -68,14 +75,17 @@ export default function LoginForm() {
             required
             className="input-field"
           />
+          </div>
           <button type="submit" disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
+          <p>Forgot password?</p>
+          </div>
         </form>
       ) : (
         <button onClick={handleLogout}>Logout</button>
       )}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-    </div>
+    </div>  
   );
 }

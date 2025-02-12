@@ -26,6 +26,14 @@ body {
   background-color: #5556a6;
   padding: 10px;
   display: flex;
+  width: 70%;
+  gap: 25px;
+  align-items: center;
+}
+
+.main-container{
+  background-color: #5556a6;
+  display: flex;
   gap: 25px;
   align-items: center;
 }

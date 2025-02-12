@@ -1,5 +1,4 @@
 import React from 'react'
-import DynamicForm from '@/app/components/AddProductForm'
 import { Breadcrumbs } from '@/app/components/Breadcrumbs'
 import AddProductForm from '@/app/components/AddProductForm'
 

@@ -25,7 +25,7 @@ const CommonForm = ({ title, formFields, onSubmit, onProductTypeChange }) => {
   const renderField = (field, index) => {
     if (!field) return null;
 
-    switch (field.type) {
+    switch (field.type) {    
       case "input":
         return (
           <div className="form-group items-stretch" key={field.field_key || index}>
@@ -40,7 +40,7 @@ const CommonForm = ({ title, formFields, onSubmit, onProductTypeChange }) => {
               onChange={(e) => handleInputChange(e, field)}
             />  
           </div>
-        );
+        ); 
       case "dropdown":
         let options = dropdowns?.[field.field_key] || [];
         

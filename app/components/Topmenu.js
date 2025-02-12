@@ -4,7 +4,9 @@ import '../globals.css';
 const Topmenu = () => {
   return (
     <nav>
+       <div className='main-container'>
       <div className='topmenu'>
+   
           <img className='logo' src='https://stage.mkwms.dev/assets/medcart-logo.svg' width={50} height={70} alt='medkart-logo'/>
           <div className='search-form'>
           <div className="input-group me-3">
@@ -16,6 +18,7 @@ const Topmenu = () => {
         <div className="create-dropdown dropdown"> 
         <button type="button"  className="create-btn">Create
         </button>
+       
       </div>
       </div>
 
@@ -25,6 +28,8 @@ const Topmenu = () => {
           <div className="d-flex">
             <span>M</span>
             <span>D</span></div></div></a>
+           
+      </div>
       </div>
     </nav>
   )

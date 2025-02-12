@@ -84,7 +84,7 @@ const ProductMaster = () => {
 
   return (
     <>
-    <div className="flex justify-evenly">
+    <div className="flex justify-between">
       <Breadcrumbs paths={[{ name: "Home", link: "/" }, { name: "Product Master" }]} />
       <Button
   onClick={() => {
@@ -111,6 +111,127 @@ const ProductMaster = () => {
 };
 
 export default ProductMaster;
+
+
+
+// "use client";
+
+// import { useEffect, useState, useRef } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import { fetchProductsSuccess, fetchProductsFailure } from "@/store/slices/productsSlice";
+// import Table from "@/app/components/Table";
+// import "@/app/globals.css";
+// import { Breadcrumbs } from "@/app/components/Breadcrumbs";
+// import Filter from "@/app/components/Filters";
+// import api from "@/utils/axiosInstance";
+// import Button from "@/app/components/Button";
+// import { useRouter } from "next/navigation";
+// import productData from "@/data/productData";
+// import Pagination from "@/app/components/Pagination";
+
+// const ProductMaster = () => {
+//   const dispatch = useDispatch();
+//   const { products, loading, error, current_page, last_page } = useSelector(
+//     (state) => state.products
+//   );
+  
+//   const router = useRouter();
+//   const [filters, setFilters] = useState({
+//     isAssured: "",
+//     isRefrigerated: "",
+//     status: "",
+//     combination: "",
+//     manufacturer: "",
+//   });
+//   const [page, setPage] = useState(1);
+
+//   const abortControllerRef = useRef(null);
+
+//   useEffect(() => {
+//     fetchFilteredProducts(filters, page);
+//   }, [filters, page]);
+
+//   const handleFilterChange = (newFilters) => {
+//     setFilters(newFilters);
+//     setPage(1);
+//   };
+
+//     const nextPage = () => {
+//     if (current_page < last_page) {
+//       dispatch(fetchProductsStart({ page: current_page + 1 }));
+//     }
+//   };
+
+//   const prevPage = () => {
+//     if (current_page > 1) {
+//       dispatch(fetchProductsStart({ page: current_page - 1 }));
+//     }
+//   };
+
+//   const handlePageChange = (newPage) => {
+//     setPage(newPage);
+//   };
+
+//   const fetchFilteredProducts = async (newFilters, page) => {
+//     if (abortControllerRef.current) {
+//       abortControllerRef.current.abort();
+//     }
+
+//     const controller = new AbortController();
+//     abortControllerRef.current = controller;
+
+//     try {
+//       const params = new URLSearchParams();
+//       if (newFilters.isAssured) params.append("is_assured", newFilters.isAssured);
+//       if (newFilters.isRefrigerated) params.append("is_refrigerated", newFilters.isRefrigerated);
+//       if (newFilters.status) params.append("publish_status", newFilters.status);
+//       if (newFilters.manufacturer) params.append("manufacturer", newFilters.manufacturer);
+//       if (newFilters.combination) params.append("combination", newFilters.combination);
+      
+//       params.append("sort_by", "created,d");
+//       params.append("page", page);
+
+//       const response = await api.get(`/master/products/unpublished?${params.toString()}`, { signal: controller.signal });
+//       dispatch(fetchProductsSuccess({ 
+//         products: response.data.products, 
+//         current_page: response.data.meta.current_page, 
+//         last_page: response.data.meta.last_page 
+//       }));
+//     } catch (error) {
+//       dispatch(fetchProductsFailure(error.message));
+//     }
+//   };
+
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p>Error: {error}</p>;
+
+//   return (
+//     <>
+//       <div className="flex justify-evenly">
+//         <Breadcrumbs paths={[{ name: "Home", link: "/" }, { name: "Product Master" }]} />
+//         <Button onClick={() => router.push("/product-master/add-product")}>+ Add</Button>
+//       </div>
+//       <div className="py-3">
+//         <div className="bg-white mt-3">
+//           <h1>Unpublished Products</h1>
+//           <Filter onFilterChange={handleFilterChange} />
+//           <Table headers={productData.headers} data={products} variant="products" />
+//           {products.length > 10 && (
+//             <div className="pagination">
+//             <Button onClick={prevPage} disabled={current_page === 1}>Previous</Button>
+//             <span>Page {current_page} of {last_page}</span>
+//             <button onClick={nextPage} disabled={current_page >= last_page}>Next</button>
+//           </div>
+//           )}
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default ProductMaster;
+
+
 
 
 

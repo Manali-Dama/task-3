@@ -123,55 +123,63 @@ export const form_fields = {
                             type: "dropdown",
                             label: "Is Assured",
                             field_key: "is_assured",
-                            required: false
+                            options: ['yes','no'],
+                            required: true
                         },
                         {
                             type: "dropdown",
                             label: "Discontinued",
                             field_key: "is_discontinued",
                             options: ['yes','no'],
-                            required: false
+                            required: true
                         },
                         {
                             type: "dropdown",
                             label: "Banned",
                             field_key: "banned",
-                            required: false
+                            options: ['yes','no'],
+                            required: true
                         },
                         {
                             type: "dropdown",
                             label: "Is Active",
                             field_key: "is_active",
-                            required: false
+                            options: ['yes','no'],
+                            required: true
                         },
                         {
                             type: "dropdown",
                             label: "Is Hidden Fron Alternate",
                             field_key: "is_hidden_from_alternate_products",
-                            required: false
+                            options: ['yes','no'],
+                            required: true
                         },
                         {
                             type: "dropdown",
                             label: "Rx Required",
                             field_key: "is_rx_required",
+                            options: ['yes','no'],
                             required: false
                         },
                         {
                             type: "dropdown",
                             label: "Can Sell Online",
                             field_key: "can_sell_online",
+                            options: ['yes','no'],
                             required: false
                         },
                         {
                             type: "dropdown",
                             label: "Chronic",
                             field_key: "is_chronic",
+                            options: ['yes','no'],
                             required: false
                         },
                         {
                             type: "dropdown",
                             label: "Refrigerated",
                             field_key: "is_refrigerated",
+                            options: ['yes','no'],
                             required: false
                         },
                         {

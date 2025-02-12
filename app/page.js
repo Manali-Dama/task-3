@@ -23,7 +23,7 @@ export default function ProtectedLayout({ children }) {
   }
 
   return (
-    <div>
+    <div >
       <div className="protected-content">
         <p>Welcome, {user?.name || 'User'}!</p>
         <button onClick={() => dispatch(logout())}>Logout</button>

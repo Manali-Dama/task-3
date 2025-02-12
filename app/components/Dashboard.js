@@ -3,7 +3,7 @@ import '../globals.css';
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className='bg-slate-50'>
       <div className='nav-menu'>
       <div><a className="navigation-link" href="/">
       <img alt="menu-icon"  src="https://stage.mkwms.dev/assets/navbar-menu/Dashboard.svg" width="24" height="24" className="me-2" />
